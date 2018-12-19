@@ -21,10 +21,7 @@
                 "--build",
                 "${workspaceFolder}/BUILD/RELEASE"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "problemMatcher": {
                 "owner": "cpp",
                 "fileLocation": [
@@ -58,7 +55,10 @@
                 "--build",
                 "${workspaceFolder}/BUILD/RELEASE"
             ],
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "problemMatcher": {
                 "owner": "cpp",
                 "fileLocation": [
