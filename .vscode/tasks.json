@@ -9,6 +9,10 @@
             "command": "mbed",
             "args": [
                 "compile",
+                "-m",
+                "CORE2",
+                "-t",
+                "GCC_ARM",
                 "--profile",
                 "${workspaceFolder}/TARGET_CORE2/custom_profiles/release.json",
                 "-c",
@@ -44,6 +48,10 @@
             "command": "mbed",
             "args": [
                 "compile",
+                "-m",
+                "CORE2",
+                "-t",
+                "GCC_ARM",
                 "--profile",
                 "${workspaceFolder}/TARGET_CORE2/custom_profiles/release.json",
                 "-N",
@@ -81,6 +89,10 @@
             "command": "mbed",
             "args": [
                 "compile",
+                "-m",
+                "CORE2",
+                "-t",
+                "GCC_ARM",
                 "--profile",
                 "${workspaceFolder}/TARGET_CORE2/custom_profiles/release.json",
                 "-c",
@@ -116,6 +128,10 @@
             "command": "mbed",
             "args": [
                 "compile",
+                "-m",
+                "CORE2",
+                "-t",
+                "GCC_ARM",
                 "--profile",
                 "${workspaceFolder}/TARGET_CORE2/custom_profiles/debug.json",
                 "-N",
@@ -176,5 +192,10 @@
                 ]
             },
         },
+        {
+            "label": "CLEAN",
+            "type": "shell",
+            "command": "rm -rf ${workspaceFolder}/BUILD/RELEASE/* ${workspaceFolder}/BUILD/DEBUG/*"
+        }
     ]
 }

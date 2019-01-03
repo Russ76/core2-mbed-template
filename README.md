@@ -12,7 +12,7 @@ You need following tools:
 * [Visual Studio Code IDE](https://code.visualstudio.com/)
 * [GNU Arm Embedded version 6 toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads)
 * [STM32 ST-LINK Utility](https://www.st.com/en/development-tools/stsw-link004.html) (Windows only)
-* [stlink flasher](https://github.com/texane/stlink/blob/master/README.md) (Mac or Linux)
+* [stlink flasher](https://github.com/texane/stlink/blob/master/README.md) (Mac/Linux/Windows)
 ## mbed-cli installation
 In-depth tutorial on Mbed CLI tool installation can be found [here](https://os.mbed.com/docs/v5.10/tools/installation-and-setup.html). 
 
@@ -107,6 +107,13 @@ You can add new tasks and customize existing ones by editing `task.json` file.
 
 <p align="center"><img width="800px" src="https://user-images.githubusercontent.com/28567623/49592056-6fac0d00-f970-11e8-8a71-51ae7c5e4a04.png" /></p>
 
+### Debug
+
+To debug:
+* make sure you have stlink from texane installed on your system: https://github.com/texane/stlink/blob/master/README.md
+* install extension: https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug
+* compile and flash DEBUG firmware
+* `CTRL + SHIFT + D` and click on `start debug` button
 
 ## mbed development
 
