@@ -373,9 +373,7 @@ typedef enum {
     SENS3_PIN1_ALT0 = PC_4_ALT0,
     SENS3_PIN2 = PG_2,
     SENS3_PIN3 = PC_12,
-    SENS3_PIN4 = PB_9,
-    SENS3_PIN4_ALT0 = PB_9_ALT0,
-    SENS3_PIN4_ALT1 = PB_9_ALT1,
+    SENS3_PIN4 = PD_2,
 
     SENS4_PIN1 = PC_5,
     SENS4_PIN1_ALT0 = PC_5_ALT0,
@@ -405,17 +403,17 @@ typedef enum {
     EXT_PIN5 = PC_0,
     EXT_PIN5_ALT0 = PC_0_ALT0,
     EXT_PIN5_ALT1 = PC_0_ALT1,
-    EXT_PIN6 = PD_6,
-    EXT_PIN7 = PD_7,
-    EXT_PIN8 = PB_13,
-    EXT_PIN9 = PC_2,
+    EXT_PIN6 = PD_6, // RX
+    EXT_PIN7 = PD_5, // TX
+    EXT_PIN8 = PB_13, // SCK SPI
+    EXT_PIN9 = PC_2, // MISO SPI
     EXT_PIN9_ALT0 = PC_2_ALT0,
     EXT_PIN9_ALT1 = PC_2_ALT1,
-    EXT_PIN10 = PC_3,
+    EXT_PIN10 = PC_3, // MOSI SPI
     EXT_PIN10_ALT0 = PC_3_ALT0,
     EXT_PIN10_ATL1 = PC_3_ALT1,
-    EXT_PIN11 = PF_1,
-    EXT_PIN12 = PF_2,
+    EXT_PIN11 = PF_0, // SDA I2C
+    EXT_PIN12 = PF_1, // SCL I2C
 
     /**** RPI PORT PINS ****/
     RPI_SERIAL_TX = PA_9,
@@ -423,6 +421,12 @@ typedef enum {
     RPI_CONSOLE = PG_5,
     RPI_STATUS = PG_6,
     RPI_BTN = PG_7,
+
+    /**** CAN ****/
+    CAN_TX = PD_1,
+    CAN_RX = PD_0,
+    CAN_EN = PA_15,
+    CAN_EN_ALT0 = PA_15_ALT0,
 
     /**** USB-B/USB-micro FTDI PINS ****/
     FT_SERIAL_TX = PB_10,
