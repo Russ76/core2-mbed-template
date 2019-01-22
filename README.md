@@ -5,7 +5,7 @@ Project is preapared for development in Visual Studio Code with no additional ex
 <p align="center"><img width="800px" src="https://cdn.shopify.com/s/files/1/2545/8446/products/CORE2-ROS_1024x1024@2x.png?v=1520001976" alt="CORE2-ROS"/></p>
 
 ## Important
-This target use C++11 and is available for `GCC_ARM` toolchain only!
+This target use C++98(C++03) and is available for `GCC_ARM` toolchain only. The C++11 can be enabled by using custom profiles (`TARGET_CORE2/custom_profiles`);
 
 ## Prerequisites
 You need following tools:
