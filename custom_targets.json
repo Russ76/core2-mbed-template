@@ -12,10 +12,9 @@
             }
         },
         "bootloader_supported": true,
-        "macros_add": ["USB_STM_HAL","INITIAL_SP=(0x20020000UL)", "ENCODER_1=TIM2", "ENCODER_2=TIM8",
-            "ENCODER_3=TIM3","ENCODER_4=TIM4", "MBED_MPU_CUSTOM"],
+        "macros_add": ["USB_STM_HAL","INITIAL_SP=(0x20020000UL)"],
         "overrides": {"lse_available": 0},
-        "device_has_add": ["ANALOGOUT", "TRNG"],
+        "device_has_add": ["ANALOGOUT", "TRNG", "CAN", "FLASH", "MPU"],
         "release_versions": ["5"],
         "device_name": "STM32F407ZG"
     }

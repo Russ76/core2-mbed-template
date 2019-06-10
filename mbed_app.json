@@ -1,16 +1,19 @@
 {
-    "config": {
-
-    },
-    "macros" : [
-
+    "config": {},
+    "macros": [
+        "ENCODER_1=TIM2",
+        "ENCODER_2=TIM8",
+        "ENCODER_3=TIM3",
+        "ENCODER_4=TIM4"
     ],
-    "target_overrides" : {
+    "target_overrides": {
         "CORE2": {
             "events.shared-dispatch-from-application": 0,
-            "platform.default-serial-baud-rate": 115200,
-            "platform.stdio-baud-rate": 115200,
-            "target.mbed_app_start": "0x08010000"
+            "events.shared-eventsize": 512,
+            "events.shared-stacksize": 2048,
+            "platform.default-serial-baud-rate": 230400,
+            "platform.stdio-baud-rate": 230400,
+            "platform.all-stats-enabled": false
         }
     }
 }

@@ -1,3 +1,4 @@
+/* Linker script to configure memory regions. */
 #if !defined(MBED_APP_START)
   #define MBED_APP_START 0x08000000
 #endif
@@ -6,7 +7,12 @@
   #define MBED_APP_SIZE 1024k
 #endif
 
-/* Linker script to configure memory regions. */
+#if !defined(MBED_BOOT_STACK_SIZE)
+    #define MBED_BOOT_STACK_SIZE 0x400
+#endif
+
+STACK_SIZE = MBED_BOOT_STACK_SIZE;
+
 MEMORY
 { 
   FLASH (rx) : ORIGIN = MBED_APP_START, LENGTH = MBED_APP_SIZE
@@ -48,7 +54,6 @@ SECTIONS
     .text :
     {
         KEEP(*(.isr_vector))
-        KEEP(*(.bootflag))
         *(.text*)
         KEEP(*(.init))
         KEEP(*(.fini))
@@ -85,8 +90,7 @@ SECTIONS
     __exidx_end = .;
 
     __etext = .;
-    /* _sidata is used by cmsis_boot */
-	_sidata = __etext;
+    _sidata = .;
 
     .data : AT (__etext)
     {
@@ -120,7 +124,7 @@ SECTIONS
         . = ALIGN(8);
         /* All data end */
         __data_end__ = .;
-		_edata = .;
+        _edata = .;
 
     } > RAM
 
@@ -141,6 +145,7 @@ SECTIONS
         __end__ = .;
         end = __end__;
         *(.heap*)
+        . = ORIGIN(RAM) + LENGTH(RAM) - STACK_SIZE;
         __HeapLimit = .;
     } > RAM
 
@@ -156,7 +161,7 @@ SECTIONS
      * size of stack_dummy section */
     __StackTop = ORIGIN(RAM) + LENGTH(RAM);
     _estack = __StackTop;
-    __StackLimit = __StackTop - SIZEOF(.stack_dummy);
+    __StackLimit = __StackTop - STACK_SIZE;
     PROVIDE(__stack = __StackTop);
 
     /* Check if data + heap + stack exceeds RAM limit */
