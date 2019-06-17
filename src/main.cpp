@@ -1,5 +1,4 @@
 #include <mbed.h>
-#include <Thread.h>
 
 static const uint8_t led_mask[] = {
 0,0b00000001,0b00000010,0b00000100,0b00000010,
