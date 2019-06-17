@@ -50,7 +50,7 @@ Set Mbed OS version to supported by this template:
 
 ```bash
 $ cd mbed-os
-$ mbed update mbed-os-5.12.3
+$ mbed update mbed-os-5.12.4
 ```
 
 After that you will need to set path to `mbed-os` directory in Mbed CLI. These way all your projects can use one instance of library (default configuration is to have separate instance of library for each project). Run:
