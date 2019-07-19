@@ -53,7 +53,13 @@ $ cd mbed-os
 $ mbed update mbed-os-5.12.4
 ```
 
-After that you will need to set path to `mbed-os` directory in Mbed CLI. These way all your projects can use one instance of library (default configuration is to have separate instance of library for each project). Run:
+During Mbed OS installation you can be asked to install additional python libraries. Switch to `mbed-os` dir and run:
+
+```bash
+$ pip install -r requirements.txt --user
+```
+
+Set path to `mbed-os` directory in Mbed CLI. These way all your projects can use one instance of the library (default configuration is to have separate instance of library for each project). Run:
 
 ```bash
 $ mbed config -G MBED_OS_DIR <path to mbed-os>
@@ -92,9 +98,9 @@ Open Visual Studio Code, press `CTRL + SHIFT + P` and type `Git: Clone` in Comma
 You will be prompted to select your repo location. Choose `core2-mbed-workspace` directory.
 
 ### Updating project files
+Open `core2-mbed-template` in VSC. In `.vscode` directory find `settings.json` file and change the value of `C_cpp.default.compilerPath` with path to `arm-none-eabi-g++` location on your system:
 
-Open `settings.json` file from `.vscode` and change value of `C_cpp.default.compilerPath` with path to `arm-none-eabi-g++` location on your system:
-
+Example (Windows):
 ```json
 {
     "C_Cpp.default.compilerPath": "C:/Program Files (x86)/GNU Tools ARM Embedded/6 2017-q2-update/bin/arm-none-eabi-g++"
@@ -106,16 +112,18 @@ Open `settings.json` file from `.vscode` and change value of `C_cpp.default.comp
 To build and flash your firmware press `CTRL + SHIFT + P` and type `Tasks: Run Task` in Command Pallete. Here is the list of available tasks: 
 * `BUILD (RELEASE)`
 * `BUILD (DEBUG)`
-* `FLASH FIRMWARE WHEN BOOTLOADER (RELEASE)`
-* `FLASH FIRMWARE WHEN BOOTLOADER (DEBUG)`
-* `FLASH FIRMWARE NO BOOTLOADER (RELEASE)`
-* `FLASH FIRMWARE NO BOOTLOADER (DEBUG)`
+* `FLASH FIRMWARE WHEN BOOTLOADER (RELEASE)`*
+* `FLASH FIRMWARE WHEN BOOTLOADER (DEBUG)`  *
+* `FLASH FIRMWARE NO BOOTLOADER (RELEASE)`  *
+* `FLASH FIRMWARE NO BOOTLOADER (DEBUG)`    *
 * `CREATE STATIC MBED-OS LIB (RELEASE)`
 * `CREATE STATIC MBED-OS LIB (DEBUG)`
 * `BUILD FROM STATIC LIB (RELEASE)`
 * `BUILD FROM STATIC LIB (DEBUG)`
 * `CLEAN DEBUG`
 * `CLEAN RELEASE`
+
+`*` *require ST-LINK programmer*
 
 ### Updating project files
 
@@ -127,15 +135,18 @@ Open `settings.json` file from `.vscode` and change value of `C_cpp.default.comp
 }
 ```
 
+You can add new tasks and customize existing ones by editing `task.json` file. 
+
 #### Building and uploading firmware (BOOTLOADER)
 
 The software bootloader allows the use of Husarion Cloud. You can find it in `TARGET_CORE2/bootloader_1_0_0_cortex.hex`. The instruction how to flash it can be found [here](https://husarion.com/manuals/core2/#updating-core2-bootloader).
 
-To build firmware use `BUILD (RELEASE)` or `BUILD (DEBUG)` task.
+To build firmware use `BUILD (RELEASE)` or `BUILD (DEBUG)` tasks.
 
-To flash firmware connect programmator to debug connector of CORE2 and use `FLASH FIRMWARE WHEN BOOTLOADER (RELEASE)` or `FLASH FIRMWARE WHEN BOOTLOADER (DEBUG)` task.
+To flash firmware connect ST-LINK to debug connector of CORE2 and use `FLASH FIRMWARE WHEN BOOTLOADER (RELEASE)` or `FLASH FIRMWARE WHEN BOOTLOADER (DEBUG)` task.
 
 #### Building and uploading firmware (NO BOOTLOADER)
+> Before proceeding with the following steps make sure you conducted mass erase of the memory and made all flash memory sectors are write unprotected.
 
 If you do not want use the bootloader just remove this lines from mbed_app.json:
 ```json
@@ -144,17 +155,37 @@ If you do not want use the bootloader just remove this lines from mbed_app.json:
     "target.mbed_rom_size":"0x100000"
 ```
 
-To build firmware use `BUILD (RELEASE)` or `BUILD (DEBUG)` task.
+To build firmware use `BUILD (RELEASE)` or `BUILD (DEBUG)` tasks.
 
-To flash firmware connect programmator to debug connector of CORE2 and use `FLASH FIRMWARE NO BOOTLOADER (RELEASE)` or `FLASH FIRMWARE NO BOOTLOADER (DEBUG)` task.
+To flash firmware connect ST-LINK to debug connector of CORE2 and use `FLASH FIRMWARE NO BOOTLOADER (RELEASE)` or `FLASH FIRMWARE NO BOOTLOADER (DEBUG)` task.
 
 #### Flashing firmware using `core2-flasher`
 
 ```bash
-./core2-flasher firmware.hex
+$ arm-none-eabi-objcopy -O ihex firmware.elf firmware.hex 
+$ ./core2-flasher firmware.hex
 ```
 
-You will find `firmware.hex` in `./BUILD/RELEASE` or `./BUILD/DEBUG`.
+You will find `firmware.elf` in `./BUILD/RELEASE` or `./BUILD/DEBUG`.
+
+Here you can learn where to find `core2-flasher` for your system:
+https://husarion.com/manuals/core2/#updating-core2-bootloader
+
+#### Flashing firmware using `stm32loader`
+https://github.com/byq77/stm32loader
+
+This tool allows you to upload firmware using RPi connector.
+
+If you have the bootloader the first two sectors are write protected. Before uploading new firmware you must unlock them (this will erase the bootloader):
+
+```bash
+$ sudo stm32loader -c <your_sbc> -u -W
+```
+
+To upload new firmware run:
+```bash
+$ sudo stm32loader -c <your_sbc> -e -v -w firmware.bin
+```
 
 ### Debug
 
