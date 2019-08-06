@@ -50,7 +50,7 @@ Set Mbed OS version to supported by this template:
 
 ```bash
 $ cd mbed-os
-$ mbed update mbed-os-5.12.4
+$ mbed update mbed-os-5.13.1
 ```
 
 During Mbed OS installation you can be asked to install additional python libraries. Switch to `mbed-os` dir and run:
