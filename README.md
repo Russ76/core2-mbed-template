@@ -2,6 +2,8 @@
 Blinking leds project template for [Husarion CORE2](https://husarion.com/manuals/core2/), a board equipped with STM32 Cortex-M4 MCU. 
 Project is prepared for development in Visual Studio Code with Mbed CLI tools.
 
+> Based on version `mbed-os-5.14.1`
+
 <p align="center"><img width="800px" src="https://cdn.shopify.com/s/files/1/2545/8446/products/CORE2-ROS_1024x1024@2x.png?v=1520001976" alt="CORE2-ROS"/></p>
 
 ## Prerequisites
@@ -19,8 +21,8 @@ You need following tools:
 ## Mbed CLI installation
 
 To install the tool follow the official documentation:
-* [Linux](https://os.mbed.com/docs/mbed-os/v5.12/tools/linux.html)
-* [Mac/Windows](https://os.mbed.com/docs/mbed-os/v5.12/tools/installation-and-setup.html)
+* [Linux](https://os.mbed.com/docs/mbed-os/v5.14/tools/manual-installation.html)
+* [Mac/Windows](https://os.mbed.com/docs/mbed-os/v5.14/tools/installation-and-setup.html)
 
 
 After installation set the path to the binary directory of your GCC Arm Embedded Compiler installation:
@@ -50,7 +52,7 @@ Set Mbed OS version to supported by this template:
 
 ```bash
 $ cd mbed-os
-$ mbed update mbed-os-5.13.1
+$ mbed update mbed-os-5.14.1
 ```
 
 During Mbed OS installation you can be asked to install additional python libraries. Switch to `mbed-os` dir and run:
