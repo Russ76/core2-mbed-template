@@ -7,7 +7,7 @@ Project is prepared for development in Visual Studio Code with Mbed CLI tools.
 <p align="center"><img width="800px" src="https://cdn.shopify.com/s/files/1/2545/8446/products/CORE2-ROS_1024x1024@2x.png?v=1520001976" alt="CORE2-ROS"/></p>
 
 ## Prerequisites
-You need following tools:
+You need to install following tools:
 * [Visual Studio Code IDE](https://code.visualstudio.com/)
 * [GNU Arm Embedded version 6 toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads)
 * [STM32 ST-LINK Utility](https://www.st.com/en/development-tools/stsw-link004.html) (Windows)
@@ -25,11 +25,20 @@ To install the tool follow the official documentation:
 * [Mac/Windows](https://os.mbed.com/docs/mbed-os/v5.14/tools/installation-and-setup.html)
 
 
-After installation set the path to the binary directory of your GCC Arm Embedded Compiler installation:
+After installation set the path to the binary directory of your **GCC Arm Embedded Compiler** installation:
 
+Example for Windows:
 ```
 $ mbed config -G GCC_ARM_PATH "C:\Program Files (x86)\GNU Tools ARM Embedded\6 2017-q2-update\bin" 
 ```
+
+Example for Linux:
+```
+$ mbed config -G GCC_ARM_PATH ~\opt\gcc-arm-none-eabi-6-2017-q2-update\bin
+```
+
+> Make sure you have the **GNU Arm Embedded version 6 toolchain** installed on your system. Check the *Prerequisites* section.
+
 To check current configuration run:
 
 ```

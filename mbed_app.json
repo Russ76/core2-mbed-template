@@ -19,7 +19,8 @@
             "platform.all-stats-enabled": false,
             "target.mbed_app_start":"0x08010000",
             "target.mbed_rom_start":"0x08000000",
-            "target.mbed_rom_size":"0x100000"
+            "target.mbed_rom_size":"0x100000",
+            "target.OUTPUT_EXT": "bin"
         }
     }
 }
