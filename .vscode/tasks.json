@@ -107,7 +107,7 @@
             },
         },
         {
-            "label": "FLASH FIRMWARE NO BOOTLOADER (RELEASE)",
+            "label": "FLASH FIRMWARE (RELEASE)",
             "type": "shell",
             "command": "st-flash write ${workspaceFolder}/BUILD/RELEASE/firmware.bin 0x08000000",
             "windows": {
@@ -123,7 +123,7 @@
             },
         },
         {
-            "label": "FLASH FIRMWARE NO BOOTLOADER (DEBUG)",
+            "label": "FLASH FIRMWARE (DEBUG)",
             "type": "shell",
             "command": "st-flash write ${workspaceFolder}/BUILD/DEBUG/firmware.bin 0x08000000",
             "windows": {
