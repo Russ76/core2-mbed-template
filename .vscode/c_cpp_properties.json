@@ -1,6 +1,6 @@
 {
     "env": {
-        "MbedOsPath": "${workspaceFolder}/../mbed-os",
+        "MbedOsPath": "mbed-os",
         "DefaultIncludePath": [
             "${MbedOsPath}",
             "${MbedOsPath}/cmsis",
@@ -203,7 +203,7 @@
             "forcedInclude": [
                 "${workspaceFolder}/BUILD/RELEASE/mbed_config.h"
             ],
-            "intelliSenseMode": "gcc-x64",
+            "intelliSenseMode": "gcc-arm",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "compilerPath": "${default}",

@@ -2,105 +2,105 @@
 Blinking leds project template for [Husarion CORE2](https://husarion.com/manuals/core2/), a board equipped with STM32 Cortex-M4 MCU. 
 Project is prepared for development in Visual Studio Code with Mbed CLI tools.
 
-> Based on version `mbed-os-5.14.1`
+> Based on version `mbed-os-5.14.2`
 
 <p align="center"><img width="800px" src="https://cdn.shopify.com/s/files/1/2545/8446/products/CORE2-ROS_1024x1024@2x.png?v=1520001976" alt="CORE2-ROS"/></p>
 
 ## Prerequisites
 You need to install following tools:
 * [Visual Studio Code IDE](https://code.visualstudio.com/)
-* [GNU Arm Embedded version 6 toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads)
-* [STM32 ST-LINK Utility](https://www.st.com/en/development-tools/stsw-link004.html) (Windows)
-* [stlink flasher](https://github.com/texane/stlink/blob/master/README.md) (Mac/Linux)
-* [Mbed CLI](https://os.mbed.com/docs/mbed-os/v5.12/tools/installation-and-setup.html)
+* [GNU Arm Embedded version 6 2017-q2 toolchain](https://developer.arm.com/open-source/gnu-toolchain/gnu-rm/downloads)
+* [stlink flasher](https://github.com/stlink-org/stlink/tree/master)
 
-### Required Visual Studio Code extensions:
+### Required Visual Studio Code extensions
 * [Microsoft C/C++ extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools) (`ms-vscode.cpptools`)
 * [Cortex-Debug](https://marketplace.visualstudio.com/items?itemName=marus25.cortex-debug) (`marus25.cortex-debug`)
 
-## Mbed CLI installation
+### Additional dependencies
+We will also need following dependencies:
+* Python 2.7.x
+* Git
+* Mercurial
 
-To install the tool follow the official documentation:
-* [Linux](https://os.mbed.com/docs/mbed-os/v5.14/tools/manual-installation.html)
-* [Mac/Windows](https://os.mbed.com/docs/mbed-os/v5.14/tools/installation-and-setup.html)
+Check [this](https://os.mbed.com/docs/mbed-os/v5.14/tools/manual-installation.html) link to find instruction on how to install this dependencies on your system.  
 
+## Setting up a workspace directory and virtual environment
+
+Install virtualenv package using pip2:
+```bash
+$ pip install virtualenv
+```
+
+Create a new folder `core2-mbed-workspace`. It will serve as workspace for your mbed projects.  Run:
+```bash
+$ mkdir core2-mbed-workspace && cd core2-mbed-workspace
+```
+
+In `core2-mbed-workspace` directory create python virtual environment (use full path to python version):
+
+```bash
+$ python2.7 -m virtualenv -p /usr/bin/python2.7 mbed_venv
+```
+
+## mbed-cli installation (python virtual environment)
+
+Activate virtual environmet:
+
+```bash
+$ source mbed_venv/bin/activate
+(mbed_venv) 
+```
+
+Install mbed-cli:
+```bash
+(mbed_venv)$ pip install mbed-cli
+```
 
 After installation set the path to the binary directory of your **GCC Arm Embedded Compiler** installation:
 
+```bash
+(mbed_venv)$ mbed config -G GCC_ARM_PATH "<your_path>\bin" 
+```
+
 Example for Windows:
 ```
-$ mbed config -G GCC_ARM_PATH "C:\Program Files (x86)\GNU Tools ARM Embedded\6 2017-q2-update\bin" 
+(mbed_venv)$ mbed config -G GCC_ARM_PATH "C:\Program Files (x86)\GNU Tools ARM Embedded\6 2017-q2-update\bin" 
 ```
 
 Example for Linux:
 ```
-$ mbed config -G GCC_ARM_PATH ~\opt\gcc-arm-none-eabi-6-2017-q2-update\bin
+(mbed_venv)$ mbed config -G GCC_ARM_PATH ~\opt\gcc-arm-none-eabi-6-2017-q2-update\bin
 ```
-
-> Make sure you have the **GNU Arm Embedded version 6 toolchain** installed on your system. Check the *Prerequisites* section.
 
 To check current configuration run:
 
-```
-$ mbed config --list
-```
+```bash
+(mbed_venv)$ mbed config --list
 
-## Preparing a workspace
-Create a new folder `core2-mbed-workspace`. It will serve as workspace for your mbed projects.  Run:
+```
+## mbed-os library installation
+
+1. Import mbed-os to `core2-mbed-workspace` directory:
 
 ```bash
-$ mkdir core2-mbed-workspace && cd core2-mbed-workspace
+(mbed_venv)$ mbed import mbed-os
 ```
-Next step is to import `mbed-os` library. It will be used by all your projects. In your workspace folder run:
+
+2. The firmware uses Mbed OS version 5.14.2. In mbed-os directory run:
 
 ```bash
-$ mbed import mbed-os
+(mbed_venv)$ mbed update mbed-os-5.14.2
 ```
 
-Set Mbed OS version to supported by this template:
+3. Install required python packages
 
 ```bash
-$ cd mbed-os
-$ mbed update mbed-os-5.14.1
+(mbed_venv)$ cd mbed-os && pip install -r requirements.txt
 ```
 
-During Mbed OS installation you can be asked to install additional python libraries. Switch to `mbed-os` dir and run:
-
+4. Deactivate virtual environment
 ```bash
-$ pip install -r requirements.txt --user
-```
-
-Set path to `mbed-os` directory in Mbed CLI. These way all your projects can use one instance of the library (default configuration is to have separate instance of library for each project). Run:
-
-```bash
-$ mbed config -G MBED_OS_DIR <path to mbed-os>
-```
-
-Example:
-
-```bash
-$ mbed config -G MBED_OS_DIR "E:\mbed_projects\core2-mbed-workspace\mbed-os"
-```
-
-### Adding .mbedignore
-
-In `mbed-os` directory create `.mbedignore` (filename starts with dot) file with following content:
-
-```
-features/cellular/*
-features/cryptocell/*
-features/deprecated_warnings/*
-features/lorawan/*
-features/lwipstack/*
-features/nanostack/*
-features/netsocket/*
-features/nfc/*
-features/unsupported/*
-components/wifi/*
-components/802.15.4_RF/*
-targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F407xG/device/TOOLCHAIN_GCC_ARM/STM32F407XG.ld
-targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F407xG/device/TOOLCHAIN_GCC_ARM/startup_stm32f407xx.S
-usb/*
+(mbed_venv)$ deactivate
 ```
 
 ## How to use firmware
@@ -109,7 +109,15 @@ Open Visual Studio Code, press `CTRL + SHIFT + P` and type `Git: Clone` in Comma
 
 You will be prompted to select your repo location. Choose `core2-mbed-workspace` directory.
 
-### Updating project files
+### Create symbolic link to mbed-os directory
+
+Inside `core2-mbed-template` run:
+
+```bash
+ln -s ../mbed-os ./mbed-os
+```
+
+### Update project files
 Open `core2-mbed-template` in VSC. In `.vscode` directory find `settings.json` file and change the value of `C_cpp.default.compilerPath` with path to `arm-none-eabi-g++` location on your system:
 
 Example (Windows):
@@ -128,10 +136,6 @@ To build and flash your firmware press `CTRL + SHIFT + P` and type `Tasks: Run T
 * `FLASH FIRMWARE WHEN BOOTLOADER (DEBUG)`  *
 * `FLASH FIRMWARE NO BOOTLOADER (RELEASE)`  *
 * `FLASH FIRMWARE NO BOOTLOADER (DEBUG)`    *
-* `CREATE STATIC MBED-OS LIB (RELEASE)`
-* `CREATE STATIC MBED-OS LIB (DEBUG)`
-* `BUILD FROM STATIC LIB (RELEASE)`
-* `BUILD FROM STATIC LIB (DEBUG)`
 * `CLEAN DEBUG`
 * `CLEAN RELEASE`
 
